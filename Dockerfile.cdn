@@ -1,0 +1,2 @@
+FROM nginx:alpine
+COPY web/cdn /usr/share/nginx/html/cdn

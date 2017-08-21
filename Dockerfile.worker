@@ -1,0 +1,22 @@
+FROM chjdev/fanlens:root-v4
+
+
+COPY base /usr/src/base
+COPY crawler /usr/src/crawler
+COPY brain /usr/src/brain
+COPY worker /usr/src/worker
+
+ADD https://www.dropbox.com/s/gips83r6m6zcsfg/nltk_data.tgz?dl=1 /tmp/nltk_data.tgz
+
+RUN tar -xzf /tmp/nltk_data.tgz -C /usr/src/brain/brain/ && \
+    rm /tmp/nltk_data.tgz && \
+    mkdir /usr/src/model_files && \
+    chown -R app:users /usr/src/model_files && \
+    pip install -e /usr/src/base && \
+    pip install -e /usr/src/crawler && \
+    pip install -e /usr/src/brain && \
+    pip install -e /usr/src/worker
+
+VOLUME /usr/src/model_files
+
+USER app

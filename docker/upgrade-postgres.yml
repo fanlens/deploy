@@ -1,0 +1,36 @@
+version: '3'
+services:
+  old:
+    image: postgres:9.5
+    command: echo "done"
+    volumes:
+      - pg_lib-old:/usr/lib/postgresql/9.5
+      - pg_share-old:/usr/share/postgresql/9.5
+  new:
+    image: postgres:9.6
+    volumes:
+      - db_data-9.6:/var/lib/postgresql/data
+  upgrade:
+    image: postgres:9.6
+    command: >
+      bash -c "
+        chown -R postgres:postgres /old && \
+        cd /tmp && \
+        su -c '/usr/lib/postgresql/9.6/bin/pg_upgrade \
+           -b /usr/lib/postgresql/9.5/bin/ \
+           -B /usr/lib/postgresql/9.6/bin/ \
+           -d /old/ \
+           -D /var/lib/postgresql/data/' postgres"
+    volumes:
+      - db_data:/old
+      - db_data-9.6:/var/lib/postgresql/data
+      - pg_lib-old:/usr/lib/postgresql/9.5
+      - pg_share-old:/usr/share/postgresql/9.5
+
+volumes:
+  db_data:
+    external: true
+  db_data-9.6:
+    external: true
+  pg_lib-old:
+  pg_share-old:

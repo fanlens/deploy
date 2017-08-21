@@ -1,0 +1,15 @@
+FROM tensorflow/tensorflow:latest-py3
+
+WORKDIR /usr/src/
+
+RUN apt-get update && \
+    apt-get install -y tzdata locales netbase libffi-dev libssl-dev && \
+    apt-get clean && \
+    echo "Etc/UTC" > /etc/timezone && \
+    dpkg-reconfigure -f noninteractive tzdata && \
+    echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 && \
+    adduser --system --no-create-home --ingroup users app
+
+ENV LC_ALL="en_US.UTF-8"

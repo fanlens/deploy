@@ -1,0 +1,73 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.6
+    volumes:
+      - db_data-9.6:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    command: redis-server --appendonly yes
+
+  rabbitmq:
+    image: rabbitmq:3-management
+
+  worker:
+    depends_on:
+      - db
+    links:
+      - db
+      - redis
+      - rabbitmq
+    volumes:
+      - gce_cred:/gce:ro
+      - model_files:/usr/src/model_files:rw
+
+  api:
+    depends_on:
+      - worker
+      - db
+      - cdn
+    links:
+      - db
+      - redis
+      - rabbitmq
+
+  ui:
+    depends_on:
+      - api
+      - worker
+      - eev
+      - cdn
+    links:
+      - db
+      - rabbitmq
+
+  cdn:
+    image: chjdev/fanlens:cdn-v4
+
+  eev:
+    image: chjdev/fanlens:eev-v4
+
+  lb:
+    image: chjdev/fanlens:lb-v4
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - cdn
+      - api
+      - ui
+      - eev
+    volumes:
+      - ssl_cert:/etc/ssl/:ro
+
+volumes:
+  db_data-9.6:
+    external: true
+  model_files:
+    external: true
+  ssl_cert:
+    external: true
+  gce_cred:
+    external: true

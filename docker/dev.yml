@@ -1,0 +1,93 @@
+version: '3'
+
+services:
+
+  db:
+    ports:
+      - "5432:5432"
+    env_file: config/postgres.dev.env
+    logging: &nonelog
+      driver: none
+
+  redis:
+    ports:
+      - "6379:6379"
+    logging:
+      <<: *nonelog
+
+  rabbitmq:
+    env_file: config/rabbitmq.dev.env
+    ports:
+      - "8080:15672"
+      - "5672:5672"
+    logging:
+      <<: *nonelog
+
+  lb:
+    env_file: config/lb.dev.env
+    volumes:
+      - ./lb/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+#    logging:
+#      <<: *nonelog
+
+  eev:
+    env_file: config/eev.dev.env
+    volumes:
+      - ../eev:/usr/src/app
+    ports:
+      - 3978:3978
+    logging:
+      <<: *nonelog
+
+  worker:
+#    image: chjdev/fanlens:worker-v4
+    image: chjdev/fanlens:dev
+    volumes:
+      - ..:/usr/src/app
+      - ../data/:/usr/src/brain/data/
+    command: [celery, worker, -B, -s, /tmp/celerybeat-schedule, -A, worker, -l, debug]
+    env_file:
+      - config/fanlens.dev.env
+      - config/worker.dev.env
+      - config/gce.env
+      - config/crawler.dev.env
+#    logging:
+#      <<: *nonelog
+
+  api:
+    image: chjdev/fanlens:dev
+    volumes:
+      - ..:/usr/src/app
+      - ./web/config.py:/etc/gunicorn/config.py:ro
+#    command: [gunicorn, -c, /etc/gunicorn/config.py, 'api:app']
+    command: [python, -mapi, -d, --bind, 0.0.0.0, --port, "5000"]
+    ports:
+      - 5000
+    env_file:
+      - config/fanlens.dev.env
+      - config/web.dev.env
+      - config/api.dev.env
+#    logging:
+#      <<: *nonelog
+
+  ui:
+    image: chjdev/fanlens:dev
+    volumes:
+      - ..:/usr/src/app
+    command: [python, -mui, -d, --bind, 0.0.0.0, --port, "5000"]
+    ports:
+      - 5000
+    env_file:
+      - config/fanlens.dev.env
+      - config/web.dev.env
+      - config/ui.dev.env
+#    logging:
+#      <<: *nonelog
+
+  cdn:
+    volumes:
+      - ../web/cdn:/usr/share/nginx/html/cdn:ro
+    ports:
+      - 80
+    logging:
+      <<: *nonelog

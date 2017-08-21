@@ -1,0 +1,16 @@
+FROM chjdev/fanlens:root-v4
+
+COPY . /usr/src/app
+
+VOLUME /usr/src/app
+
+WORKDIR /usr/src/app
+
+RUN chown -R app:users /usr/src/app && \
+    mkdir /usr/src/model_files && \
+    chown -R app:users /usr/src/model_files && \
+    pip install -r requirements.txt
+
+VOLUME /usr/src/model_files
+
+USER app

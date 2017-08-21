@@ -1,0 +1,39 @@
+version: '3'
+services:
+
+  lb:
+    env_file: config/lb.prod.env
+
+  db:
+    env_file: config/postgres.prod.env
+
+  rabbitmq:
+    env_file: config/rabbitmq.prod.env
+
+  eev:
+    env_file: config/eev.prod.env
+
+  worker:
+    image: chjdev/fanlens:worker-v4
+    command: [celery, worker, -B, -s, /tmp/celerybeat-schedule, -A, worker, -l, info]
+    env_file:
+      - config/fanlens.prod.env
+      - config/worker.prod.env
+      - config/gce.env
+      - config/crawler.prod.env
+
+  api:
+    image: chjdev/fanlens:api-v4
+    command: [gunicorn, -c, /etc/gunicorn/config.py, 'api:app']
+    env_file:
+      - config/fanlens.prod.env
+      - config/web.prod.env
+      - config/api.prod.env
+
+  ui:
+    image: chjdev/fanlens:ui-v4
+    command: [gunicorn, -c, /etc/gunicorn/config.py, 'ui:app']
+    env_file:
+      - config/fanlens.prod.env
+      - config/web.prod.env
+      - config/ui.prod.env

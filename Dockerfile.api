@@ -1,0 +1,8 @@
+FROM chjdev/fanlens:web-v4
+
+COPY web/api /usr/src/web/api
+COPY web/flask_modules /usr/src/web/flask_modules
+
+RUN pip install -e /usr/src/web
+
+USER app
