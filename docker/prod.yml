@@ -10,8 +10,8 @@ services:
   rabbitmq:
     env_file: config/rabbitmq.prod.env
 
-  eev:
-    env_file: config/eev.prod.env
+  bot:
+    env_file: config/bot.prod.env
 
   worker:
     image: chjdev/fanlens:worker-v4

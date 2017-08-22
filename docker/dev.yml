@@ -30,17 +30,16 @@ services:
 #    logging:
 #      <<: *nonelog
 
-  eev:
-    env_file: config/eev.dev.env
+  bot:
+    env_file: config/bot.dev.env
     volumes:
-      - ../eev:/usr/src/app
+      - ../bot:/usr/src/app
     ports:
       - 3978:3978
     logging:
       <<: *nonelog
 
   worker:
-#    image: chjdev/fanlens:worker-v4
     image: chjdev/fanlens:dev
     volumes:
       - ..:/usr/src/app

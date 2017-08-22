@@ -37,7 +37,7 @@ services:
     depends_on:
       - api
       - worker
-      - eev
+      - bot
       - cdn
     links:
       - db
@@ -46,8 +46,8 @@ services:
   cdn:
     image: chjdev/fanlens:cdn-v4
 
-  eev:
-    image: chjdev/fanlens:eev-v4
+  bot:
+    image: chjdev/fanlens:bot-v4
 
   lb:
     image: chjdev/fanlens:lb-v4
@@ -58,7 +58,7 @@ services:
       - cdn
       - api
       - ui
-      - eev
+      - bot
     volumes:
       - ssl_cert:/etc/ssl/:ro
 
