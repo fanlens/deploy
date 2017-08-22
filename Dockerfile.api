@@ -1,8 +1,14 @@
-FROM chjdev/fanlens:web-v4
+FROM chjdev/fanlens:root-v4
 
+COPY docker/web/requirements.txt /usr/src/deploy/web/requirements.txt
+COPY common /usr/src/common
+COPY web/setup.py /usr/src/web/
 COPY web/api /usr/src/web/api
 COPY web/flask_modules /usr/src/web/flask_modules
 
-RUN pip install -e /usr/src/web
+RUN pip install -e /usr/src/common && \
+    pip install -e /usr/src/web && \
+    pip install -r /usr/src/deploy/web/requirements.txt
 
 USER app
+EXPOSE 5000
