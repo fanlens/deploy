@@ -1,0 +1,5 @@
+FROM node:alpine
+EXPOSE 3978
+
+COPY bot /usr/src/app
+
