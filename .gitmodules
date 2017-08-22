@@ -1,0 +1,4 @@
+[submodule "bot"]
+	path = bot
+	url = ssh://git@bitbucket.org/fanlens/bot.git
+	branch = master
