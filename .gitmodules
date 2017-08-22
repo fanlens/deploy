@@ -2,3 +2,11 @@
 	path = bot
 	url = ssh://git@bitbucket.org/fanlens/bot.git
 	branch = master
+[submodule "web"]
+	path = web
+	url = ssh://git@bitbucket.org/fanlens/web.git
+	branch = master
+[submodule "common"]
+	path = common
+	url = ssh://git@bitbucket.org/fanlens/common.git
+	branch = master
