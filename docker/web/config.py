@@ -3,8 +3,7 @@
 import multiprocessing
 import os
 
-
-bind = "0.0.0.0:5000"
+bind = "0.0.0.0:%d" % int(os.getenv('PORT', 5000))
 workers = multiprocessing.cpu_count() * 2 + 1
 capture_output = True
 loglevel = os.environ.get('FL_WEB_LOGLEVEL', 'INFO')

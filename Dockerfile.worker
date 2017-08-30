@@ -1,7 +1,7 @@
 FROM chjdev/fanlens:root-v4
 
 
-COPY base /usr/src/base
+COPY common /usr/src/common
 COPY crawler /usr/src/crawler
 COPY brain /usr/src/brain
 COPY worker /usr/src/worker
@@ -12,7 +12,7 @@ RUN tar -xzf /tmp/nltk_data.tgz -C /usr/src/brain/brain/ && \
     rm /tmp/nltk_data.tgz && \
     mkdir /usr/src/model_files && \
     chown -R app:users /usr/src/model_files && \
-    pip install -e /usr/src/base && \
+    pip install -e /usr/src/common && \
     pip install -e /usr/src/crawler && \
     pip install -e /usr/src/brain && \
     pip install -e /usr/src/worker

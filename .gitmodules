@@ -10,3 +10,15 @@
 	path = common
 	url = ssh://git@bitbucket.org/fanlens/common.git
 	branch = master
+[submodule "brain"]
+	path = brain
+	url = ssh://git@bitbucket.org/fanlens/brain.git
+	branch = master
+[submodule "worker"]
+	path = worker
+	url = ssh://git@bitbucket.org/fanlens/worker.git
+	branch = master
+[submodule "crawler"]
+	path = crawler
+	url = ssh://git@bitbucket.org/fanlens/crawler.git
+	branch = master

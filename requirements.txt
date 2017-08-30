@@ -1,7 +1,1 @@
--e ../common
--e ../crawler
--e ../brain
--e ../worker
--e ../web
 gunicorn
-sqlalchemy-migrate
