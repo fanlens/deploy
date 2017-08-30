@@ -1,0 +1,17 @@
+applications:
+- name: ui
+  instances: 1
+  memory: 128M
+  disk_quota: 1024M
+  routes:
+  - route: ui.fanlens.io
+  stack: cflinuxfs2
+  env:
+    FL_DB_DATABASE: fanlens
+    FL_DB_HOST: smoky-strawberry-01.db.elephantsql.com
+    FL_DB_PASSWORD: ***REMOVED***
+    FL_DB_PORT: "5432"
+    FL_DB_USERNAME: web
+    FL_WEB_DEMOSOURCE: "1"
+    FL_WEB_DOMAIN: fanlens.io
+    FL_WEB_LOGLEVEL: DEBUG
