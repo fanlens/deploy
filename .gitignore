@@ -26,3 +26,12 @@ docker/backup
 /celerybeat-schedule.dir
 web/ui/static/app.js
 
+bx/*/
+!bx/*/Procfile
+!bx/*/.cfignore
+!bx/*/requirements.txt
+!bx/*/runtime.txt
+!bx/*/deploy.sh
+!bx/*/manifest.yml.dist
+!bx/*/gunicorn_config.py
+

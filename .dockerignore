@@ -1,3 +1,8 @@
+venv
+**/venv
+**/.git
+.git
+bx
 cdn
 cdn/nltk_data
 #web
@@ -12,3 +17,4 @@ docker/config
 eev/emu
 eev/emu_link
 eev/node_modules
+.idea

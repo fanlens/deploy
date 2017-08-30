@@ -9,7 +9,12 @@ WORKDIR /usr/src/app
 RUN chown -R app:users /usr/src/app && \
     mkdir /usr/src/model_files && \
     chown -R app:users /usr/src/model_files && \
-    pip install -r requirements.txt
+    pip install -e /usr/src/app/common && \
+    pip install -e /usr/src/app/crawler && \
+    pip install -e /usr/src/app/brain && \
+    pip install -e /usr/src/app/worker && \
+    pip install -e /usr/src/app/web && \
+    pip install -r /usr/src/app/requirements.txt
 
 VOLUME /usr/src/model_files
 
