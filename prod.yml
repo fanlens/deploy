@@ -24,7 +24,7 @@ services:
 
   api:
     image: chjdev/fanlens:api-v4
-    command: [gunicorn, -c, /etc/gunicorn/config.py, 'api:app']
+    command: [gunicorn, -c, /etc/gunicorn/gunicorn.py, 'api:app']
     env_file:
       - config/fanlens.prod.env
       - config/web.prod.env
@@ -32,7 +32,7 @@ services:
 
   ui:
     image: chjdev/fanlens:ui-v4
-    command: [gunicorn, -c, /etc/gunicorn/config.py, 'ui:app']
+    command: [gunicorn, -c, /etc/gunicorn/gunicorn.py, 'ui:app']
     env_file:
       - config/fanlens.prod.env
       - config/web.prod.env

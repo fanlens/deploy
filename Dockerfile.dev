@@ -14,7 +14,7 @@ RUN chown -R app:users /usr/src/app && \
     pip install -e /usr/src/app/brain && \
     pip install -e /usr/src/app/worker && \
     pip install -e /usr/src/app/web && \
-    pip install -r /usr/src/app/requirements.txt
+    pip install gunicorn
 
 VOLUME /usr/src/model_files
 
