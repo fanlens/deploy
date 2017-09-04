@@ -28,14 +28,14 @@ services:
   lb:
     env_file: config/lb.dev.env
     volumes:
-      - ./lb/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
-    logging:
-      <<: *nonelog
+      - ./config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+#    logging:
+#      <<: *nonelog
 
   bot:
     env_file: config/bot.dev.env
-    volumes:
-      - ../bot:/usr/src/app
+#    volumes:
+#      - ../bot:/usr/src/app
     ports:
       - 3978:3978
 #    logging:
@@ -45,13 +45,13 @@ services:
     image: chjdev/fanlens:dev
     volumes:
       - ..:/usr/src/app
-      - ../data/:/usr/src/brain/data/
+      - ./data/:/usr/src/brain/data/
     command: [celery, worker, -B, -s, /tmp/celerybeat-schedule, -A, worker, -l, debug]
     env_file:
       - config/fanlens.dev.env
+      - config/crawler.dev.env
       - config/worker.dev.env
       - config/gce.env
-      - config/crawler.dev.env
 #    logging:
 #      <<: *nonelog
 
@@ -59,8 +59,8 @@ services:
     image: chjdev/fanlens:dev
     volumes:
       - ..:/usr/src/app
-      - ./web/config.py:/etc/gunicorn/config.py:ro
-#    command: [gunicorn, -c, /etc/gunicorn/config.py, 'api:app']
+      - ./config/gunicorn.py:/etc/gunicorn/gunicorn.py:ro
+#    command: [gunicorn, -c, /etc/gunicorn/gunicorn.py, 'api:app']
     command: [python, -mapi, -d, --bind, 0.0.0.0, --port, "5000"]
     ports:
       - 5000
@@ -75,9 +75,9 @@ services:
     image: chjdev/fanlens:dev
     volumes:
       - ..:/usr/src/app
-      - ./web/config.py:/etc/gunicorn/config.py:ro
-    command: [gunicorn, -c, /etc/gunicorn/config.py, 'ui:app']
-#    command: [python, -mui, -d, --bind, 0.0.0.0, --port, "5000"]
+      - ./config/gunicorn.py:/etc/gunicorn/gunicorn.py:ro
+#    command: [gunicorn, -c, /etc/gunicorn/gunicorn.py, 'ui:app']
+    command: [python, -mui, -d, --bind, 0.0.0.0, --port, "5000"]
     ports:
       - 5000
     env_file:
