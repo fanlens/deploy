@@ -13,7 +13,7 @@ __pycache__
 brain/brain/nltk_data
 brain/brain/experiments/*.txt
 data
-docker/config
+config
 eev/emu
 eev/emu_link
 eev/node_modules
