@@ -1,0 +1,20 @@
+version: '3'
+services:
+  worker:
+    image: chjdev/fanlens:worker-v4
+    command: [celery, worker, -B, -s, /tmp/celerybeat-schedule, -A, worker, -l, debug]
+    env_file:
+      - config/fanlens.bx.env
+      - config/worker.bx.env
+      - config/gce.env
+      - config/crawler.bx.env
+    volumes:
+      - gce_cred:/gce:ro
+      - model_files:/usr/src/model_files:rw
+
+volumes:
+  model_files:
+    external: true
+  gce_cred:
+    external: true
+
