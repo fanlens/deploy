@@ -1,7 +1,7 @@
 applications:
 - name: ui
   instances: 1
-  memory: 128M
+  memory: 256M
   disk_quota: 1024M
   routes:
   - route: ui.fanlens.io

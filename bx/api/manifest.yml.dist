@@ -1,7 +1,7 @@
 applications:
 - name: API
-  instances: 1
-  memory: 128M
+  instances: 2
+  memory: 256M
   disk_quota: 1024M
   routes:
   - route: api.fanlens.io
