@@ -5,6 +5,7 @@ applications:
   disk_quota: 1024M
   routes:
   - route: ui.fanlens.io
+  - route: cdn.fanlens.io
   stack: cflinuxfs2
   env:
     FL_DB_DATABASE: fanlens
