@@ -89,8 +89,8 @@ services:
 
   cdn:
     volumes:
-      - ../web/cdn:/usr/share/nginx/html/cdn:ro
+      - ../web/ui/static:/usr/share/nginx/html/static:ro
     ports:
       - 80
-    logging:
-      <<: *nonelog
+#    logging:
+#      <<: *nonelog
