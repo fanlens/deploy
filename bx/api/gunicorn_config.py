@@ -4,7 +4,7 @@ import multiprocessing
 import os
 
 bind = "0.0.0.0:%d" % int(os.getenv('PORT', 5000))
-workers = 2
+workers = 8
 # threads = multiprocessing.cpu_count() * 2 + 1
 # worker_class = 'eventlet'
 # worker_class = 'gthread'
