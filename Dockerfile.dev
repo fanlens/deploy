@@ -2,20 +2,27 @@ FROM chjdev/fanlens:root-v4
 
 COPY . /usr/src/app
 
-VOLUME /usr/src/app
-
 WORKDIR /usr/src/app
 
-RUN chown -R app:users /usr/src/app && \
-    mkdir /usr/src/model_files && \
-    chown -R app:users /usr/src/model_files && \
-    pip install -e /usr/src/app/common && \
-    pip install -e /usr/src/app/crawler && \
-    pip install -e /usr/src/app/brain && \
-    pip install -e /usr/src/app/worker && \
-    pip install -e /usr/src/app/web && \
-    pip install gunicorn
+RUN mkdir /usr/src/model_files && \
+    chown -R app:users /usr/src/app/ && \
+    chown -R app:users /usr/src/model_files/
 
+VOLUME /usr/src/app
 VOLUME /usr/src/model_files
 
-USER app
+RUN pip install --upgrade pip && \
+    for D in common brain crawler worker web .; do \
+        if [ -e /usr/src/app/$D/setup.py ]; then \
+            pip install -e /usr/src/app/$D; \
+        fi; \
+        if [ -e /usr/src/app/$D/requirements.txt ]; then \
+            pip install -r /usr/src/app/$D/requirements.txt; \
+        fi; \
+    done;
+
+# important: left to root user for easier entrypoint installs. don't use in production
+# USER app
+
+
+
