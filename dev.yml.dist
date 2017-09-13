@@ -6,16 +6,14 @@ services:
     ports:
       - "5432:5432"
     env_file: config/postgres.dev.env
-#    logging: &nonelog
-#      driver: none
+    logging: &nonelog
+      driver: none
 
   redis:
     ports:
       - "6379:6379"
-    logging: &nonelog
-      driver: none
-#    logging:
-#      <<: *nonelog
+    logging:
+      <<: *nonelog
 
   rabbitmq:
     env_file: config/rabbitmq.dev.env
@@ -29,17 +27,17 @@ services:
     env_file: config/lb.dev.env
     volumes:
       - ./config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
-#    logging:
-#      <<: *nonelog
+    logging:
+      <<: *nonelog
 
   bot:
     env_file: config/bot.dev.env
-#    volumes:
-#      - ../bot:/usr/src/app
+    volumes:
+      - ../bot:/usr/src/app
     ports:
       - 3978:3978
-#    logging:
-#      <<: *nonelog
+    logging:
+      <<: *nonelog
 
   worker:
     image: chjdev/fanlens:dev
@@ -52,15 +50,14 @@ services:
       - config/crawler.dev.env
       - config/worker.dev.env
       - config/gce.env
-#    logging:
-#      <<: *nonelog
+    logging:
+      <<: *nonelog
 
   api:
     image: chjdev/fanlens:dev
     volumes:
       - ..:/usr/src/app
       - ./config/gunicorn.py:/etc/gunicorn/gunicorn.py:ro
-#    command: [gunicorn, -c, /etc/gunicorn/gunicorn.py, 'api:app']
     command: [python, -mapi, -d, --bind, 0.0.0.0, --port, "5000"]
     ports:
       - 5000
@@ -68,15 +65,15 @@ services:
       - config/fanlens.dev.env
       - config/web.dev.env
       - config/api.dev.env
-#    logging:
-#      <<: *nonelog
+    logging:
+      <<: *nonelog
 
   ui:
     image: chjdev/fanlens:dev
+    entrypoint: /usr/src/app/deploy/entrypoint.dev.sh
     volumes:
       - ..:/usr/src/app
       - ./config/gunicorn.py:/etc/gunicorn/gunicorn.py:ro
-#    command: [gunicorn, -c, /etc/gunicorn/gunicorn.py, 'ui:app']
     command: [python, -mui, -d, --bind, 0.0.0.0, --port, "5000"]
     ports:
       - 5000
@@ -84,13 +81,13 @@ services:
       - config/fanlens.dev.env
       - config/web.dev.env
       - config/ui.dev.env
-#    logging:
-#      <<: *nonelog
+    logging:
+      <<: *nonelog
 
   cdn:
     volumes:
       - ../web/ui/static:/usr/share/nginx/html/static:ro
     ports:
       - 80
-#    logging:
-#      <<: *nonelog
+    logging:
+      <<: *nonelog

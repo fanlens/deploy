@@ -45,6 +45,8 @@ services:
 
   cdn:
     image: chjdev/fanlens:cdn-v4
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
 
   bot:
     image: chjdev/fanlens:bot-v4
