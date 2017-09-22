@@ -46,7 +46,7 @@ services:
       - ./data/:/usr/src/brain/data/
     command: [celery, worker, -B, -s, /tmp/celerybeat-schedule, -A, worker, -l, debug]
     env_file:
-      - config/fanlens.dev.env
+      - config/db.dev.env
       - config/crawler.dev.env
       - config/worker.dev.env
       - config/gce.env
@@ -62,9 +62,8 @@ services:
     ports:
       - 5000
     env_file:
-      - config/fanlens.dev.env
+      - config/db.dev.env
       - config/web.dev.env
-      - config/api.dev.env
     logging:
       <<: *nonelog
 
@@ -78,9 +77,8 @@ services:
     ports:
       - 5000
     env_file:
-      - config/fanlens.dev.env
+      - config/db.dev.env
       - config/web.dev.env
-      - config/ui.dev.env
     logging:
       <<: *nonelog
 
