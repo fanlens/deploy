@@ -4,10 +4,13 @@ services:
     image: chjdev/fanlens:worker-v4
     command: [celery, worker, -B, -s, /tmp/celerybeat-schedule, -A, worker, -l, debug]
     env_file:
-      - config/fanlens.bx.env
-      - config/worker.prod.env
-      - config/gce.env
+      - config/version.prod.env
+      - config/db.prod.env
+      - config/celery.prod.env
+      - config/brain.prod.env
+      - config/twitter.prod.env
       - config/crawler.prod.env
+      - config/worker.prod.env
     volumes:
       - gce_cred:/gce:ro
       - model_files:/usr/src/model_files:rw

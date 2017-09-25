@@ -14,7 +14,6 @@ __pycache__
 venv*
 **egg-info**
 config/*.env
-!config/version.env
 config/*.ini
 docker/config/*.env
 docker/config/*.ini
