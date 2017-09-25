@@ -11,29 +11,41 @@ services:
     env_file: config/rabbitmq.prod.env
 
   bot:
-    env_file: config/bot.prod.env
+    env_file:
+      - config/version.prod.env
+      - config/bot.prod.env
 
   worker:
     image: chjdev/fanlens:worker-v4
     command: [celery, worker, -B, -s, /tmp/celerybeat-schedule, -A, worker, -l, info]
     env_file:
-      - config/fanlens.prod.env
-      - config/worker.prod.env
-      - config/gce.env
+      - config/version.prod.env
+      - config/db.prod.env
+      - config/celery.prod.env
+      - config/brain.prod.env
+      - config/twitter.prod.env
       - config/crawler.prod.env
+      - config/worker.prod.env
 
   api:
     image: chjdev/fanlens:api-v4
     command: [gunicorn, -c, /etc/gunicorn/gunicorn.py, 'api:app']
     env_file:
-      - config/fanlens.prod.env
+      - config/version.prod.env
+      - config/db.prod.env
+      - config/redis.prod.env
+      - config/celery.prod.env
+      - config/mail.prod.env
       - config/web.prod.env
-      - config/api.prod.env
 
   ui:
     image: chjdev/fanlens:ui-v4
     command: [gunicorn, -c, /etc/gunicorn/gunicorn.py, 'ui:app']
     env_file:
-      - config/fanlens.prod.env
+      - config/version.prod.env
+      - config/db.prod.env
+      - config/redis.prod.env
+      - config/celery.prod.env
+      - config/mail.prod.env
       - config/web.prod.env
-      - config/ui.prod.env
+      - config/twitter.prod.env

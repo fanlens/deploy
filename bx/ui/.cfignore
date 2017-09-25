@@ -1,3 +1,4 @@
+**/.git
 manifest.yml
 manifest.yml.dist
 **/venv

@@ -31,7 +31,9 @@ services:
       <<: *nonelog
 
   bot:
-    env_file: config/bot.dev.env
+    env_file:
+      - config/version.env
+      - config/bot.dev.env
     volumes:
       - ../bot:/usr/src/app
     ports:
@@ -46,10 +48,13 @@ services:
       - ./data/:/usr/src/brain/data/
     command: [celery, worker, -B, -s, /tmp/celerybeat-schedule, -A, worker, -l, debug]
     env_file:
-      - config/fanlens.dev.env
+      - config/version.env
+      - config/db.dev.env
+      - config/celery.dev.env
+      - config/brain.dev.env
+      - config/twitter.dev.env
       - config/crawler.dev.env
       - config/worker.dev.env
-      - config/gce.env
     logging:
       <<: *nonelog
 
@@ -62,9 +67,12 @@ services:
     ports:
       - 5000
     env_file:
-      - config/fanlens.dev.env
+      - config/version.env
+      - config/db.dev.env
+      - config/redis.dev.env
+      - config/celery.dev.env
+      - config/mail.dev.env
       - config/web.dev.env
-      - config/api.dev.env
     logging:
       <<: *nonelog
 
@@ -78,9 +86,13 @@ services:
     ports:
       - 5000
     env_file:
-      - config/fanlens.dev.env
+      - config/version.env
+      - config/db.dev.env
+      - config/redis.dev.env
+      - config/celery.dev.env
+      - config/mail.dev.env
       - config/web.dev.env
-      - config/ui.dev.env
+      - config/twitter.dev.env
     logging:
       <<: *nonelog
 
