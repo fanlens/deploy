@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for mod_path in "bot brain common crawler web worker"; do
+for mod_path in bot brain common crawler web worker; do
   cd "../${mod_path}";
   git checkout master;
   git merge --no-ff dev;
