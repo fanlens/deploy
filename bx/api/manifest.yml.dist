@@ -6,3 +6,4 @@ applications:
   routes:
   - route: api.fanlens.io
   stack: cflinuxfs2
+  env:
