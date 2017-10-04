@@ -63,7 +63,7 @@ services:
     volumes:
       - ..:/usr/src/app
       - ./config/gunicorn.py:/etc/gunicorn/gunicorn.py:ro
-    command: [python, -mapi, -d, --bind, 0.0.0.0, --port, "5000"]
+    command: [python, -mweb.api, -d, --bind, 0.0.0.0, --port, "5000"]
     ports:
       - 5000
     env_file:
@@ -82,7 +82,7 @@ services:
     volumes:
       - ..:/usr/src/app
       - ./config/gunicorn.py:/etc/gunicorn/gunicorn.py:ro
-    command: [python, -mui, -d, --bind, 0.0.0.0, --port, "5000"]
+    command: [python, -mweb.ui, -d, --bind, 0.0.0.0, --port, "5000"]
     ports:
       - 5000
     env_file:
@@ -98,7 +98,7 @@ services:
 
   cdn:
     volumes:
-      - ../web/ui/static:/usr/share/nginx/html/static:ro
+      - ../web/web/ui/static:/usr/share/nginx/html/static:ro
     ports:
       - 80
     logging:
