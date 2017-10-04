@@ -1,1 +1,9 @@
+-e common
+-e brain
+-e crawler
+-e worker
+-e web
 gunicorn
+sqlalchemy-migrate
+pylint
+mypy

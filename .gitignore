@@ -28,3 +28,4 @@ docker/backup
 web/ui/static/app.js
 
 /bx/**/*.yml
+.mypy_cache

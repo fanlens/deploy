@@ -1,11 +1,38 @@
-FROM tensorflow/tensorflow:latest-py3
+FROM python:3.6.1
+#FROM tensorflow/tensorflow:latest-py3
+
+# Pick up some TF and general dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential \
+        curl \
+        libfreetype6-dev \
+        libpng12-dev \
+        libzmq3-dev \
+        pkg-config \
+        python \
+        python-dev \
+        rsync \
+        software-properties-common \
+        unzip \
+        tzdata locales netbase libffi-dev libssl-dev \
+        && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install tensorflow
+RUN pip install --no-cache-dir --upgrade \
+        Pillow \
+        h5py \
+        matplotlib \
+        numpy \
+        pandas \
+        scipy \
+        sklearn \
+        tensorflow
 
 WORKDIR /usr/src/
 
-RUN apt-get update && \
-    apt-get install -y tzdata locales netbase libffi-dev libssl-dev && \
-    apt-get clean && \
-    echo "Etc/UTC" > /etc/timezone && \
+RUN echo "Etc/UTC" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata && \
     echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales && \
