@@ -430,9 +430,3 @@ known-third-party=enchant
 # Exceptions that will emit a warning when being caught. Defaults to
 # "Exception"
 overgeneral-exceptions=Exception
-
-[web.flask_modules]
-
-# some custom good names for the web tier, this follows the style of flask
-good-names=cache,celery,cors,db,jwt,logger,mail,csrf,security,twitter,brain,scrape,defaults,current_user_dao,app
-generated-members=db.func,db.session.(add|query|commit|rollback)
