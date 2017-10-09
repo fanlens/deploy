@@ -1,3 +1,9 @@
+# disabled line to long and too few public methods, they don't make too much sense
+# good names adapted to fit better into numpy, e.g. x, X, etc
+# special cases for web.flask_modules, see below
+
+
+
 [MASTER]
 
 # A comma-separated list of package or module names from where C extensions may
@@ -50,7 +56,7 @@ confidence=
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
-disable=line-too-long
+disable=line-too-long,too-few-public-methods
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -124,7 +130,7 @@ const-name-hint=(([A-Z_][A-Z0-9_]*)|(__.*__))$
 
 # Regular expression matching correct constant names
 # includes custom TTypeName syntax for NewType
-const-rgx=(([A-Z_][A-Z0-9_]*)|(__.*__)|T[A-Z][0-9a-zA-Z]*)$
+const-rgx=(([A-Z_][A-Z0-9_]*)|(__.*__)|_?T[A-Z][0-9a-zA-Z]*)$
 
 # Minimum line length for functions/classes that require docstrings, shorter
 # ones are exempt.
@@ -137,7 +143,7 @@ function-name-hint=(([a-z][a-z0-9_]{2,30})|(_[a-z0-9_]*))$
 function-rgx=(([a-z][a-z0-9_]{2,30})|(_[a-z0-9_]*))$
 
 # Good variable names which should always be accepted, separated by a comma
-good-names=i,j,k,ex,Run,_,X,xs,x,Y,ys,y
+good-names=i,j,k,ex,Run,_,X,xs,x,Y,ys,y,app
 
 # Include a hint for the correct naming format with invalid-name
 include-naming-hint=no
@@ -424,3 +430,9 @@ known-third-party=enchant
 # Exceptions that will emit a warning when being caught. Defaults to
 # "Exception"
 overgeneral-exceptions=Exception
+
+[web.flask_modules]
+
+# some custom good names for the web tier, this follows the style of flask
+good-names=cache,celery,cors,db,jwt,logger,mail,csrf,security,twitter,brain,scrape,defaults,current_user_dao,app
+generated-members=db.func,db.session.(add|query|commit|rollback)
