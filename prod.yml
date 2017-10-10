@@ -17,7 +17,7 @@ services:
 
   worker:
     image: chjdev/fanlens:worker-v4
-    command: [celery, worker, -B, -s, /tmp/celerybeat-schedule, -A, worker, -l, info]
+    command: [celery, worker, -B, -s, /tmp/celerybeat-schedule, -A, worker.app, -l, info]
     env_file:
       - config/version.prod.env
       - config/db.prod.env
@@ -29,7 +29,7 @@ services:
 
   api:
     image: chjdev/fanlens:api-v4
-    command: [gunicorn, -c, /etc/gunicorn/gunicorn.py, 'api:app']
+    command: [gunicorn, -c, /etc/gunicorn/gunicorn.py, 'web.api:app']
     env_file:
       - config/version.prod.env
       - config/db.prod.env
@@ -40,7 +40,7 @@ services:
 
   ui:
     image: chjdev/fanlens:ui-v4
-    command: [gunicorn, -c, /etc/gunicorn/gunicorn.py, 'ui:app']
+    command: [gunicorn, -c, /etc/gunicorn/gunicorn.py, 'web.ui:app']
     env_file:
       - config/version.prod.env
       - config/db.prod.env

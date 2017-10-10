@@ -1,24 +1,24 @@
 [submodule "bot"]
 	path = bot
 	url = ssh://git@bitbucket.org/fanlens/bot.git
-	branch = master
+	branch = dev
 [submodule "web"]
 	path = web
 	url = ssh://git@bitbucket.org/fanlens/web.git
-	branch = master
+	branch = dev
 [submodule "common"]
 	path = common
 	url = ssh://git@bitbucket.org/fanlens/common.git
-	branch = master
+	branch = dev
 [submodule "brain"]
 	path = brain
 	url = ssh://git@bitbucket.org/fanlens/brain.git
-	branch = master
+	branch = dev
 [submodule "worker"]
 	path = worker
 	url = ssh://git@bitbucket.org/fanlens/worker.git
-	branch = master
+	branch = dev
 [submodule "crawler"]
 	path = crawler
 	url = ssh://git@bitbucket.org/fanlens/crawler.git
-	branch = master
+	branch = dev
