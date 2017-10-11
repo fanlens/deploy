@@ -1,0 +1,16 @@
+Deployment package for the Fanlens modules.
+
+This repository contains:
+* The main fanlens modules as git submodules
+* Quality checks
+* Type checking
+* Environment config files
+* Docker / Docker-Compose files
+* IBM Bluemix deployment tools
+
+
+./run_quality.sh performs linting and type checking of all modules
+
+> git clone https://github.com/fanlens/deploy
+> git submodule init
+> git submodule update --remote
