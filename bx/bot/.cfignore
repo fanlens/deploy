@@ -3,4 +3,3 @@ manifest.yml
 manifest.yml.dist
 **/venv
 **/node_modules
-node_modules
