@@ -22,3 +22,7 @@
 	path = crawler
 	url = ssh://git@bitbucket.org/fanlens/crawler.git
 	branch = master
+[submodule "client"]
+	path = client
+	url = ssh://git@bitbucket.org/fanlens/client.git
+	branch = master
